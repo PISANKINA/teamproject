@@ -1,21 +1,23 @@
+import re
+
 class ToRomanNumber:
+
     def __init__(self, rom_number):
         self.rom_number = rom_number
         self.int_number = None
 
     def validation(self):
-        ROM_NUMBERS = ['I', 'V', 'X', 'L', 'C', 'D', 'M']
-        valid = 0
-        for i in self.rom_number:
-            if i in ROM_NUMBERS:
-                valid += 1
 
-        if valid == len(self.rom_number):
+        PATTERN = '^M{,3}(CM|CD|D?C{,3})(XC|XL|L?X{,3})(IX|IV|V?I{,3})$'
+        if self.rom_number=='':
+            return False
+        if re.search(PATTERN, self.rom_number):
             return True
         else:
             return False
 
     def converting(self):
+
         if self.validation() == True:
             return self.rom_in_int()
         else:
@@ -59,18 +61,11 @@ class ToRomanNumber:
         return self.int_number
 
 
-    def __add__(self, other):
-        if type(other) == ToRomanNumber:
-            return ToRomanNumber(self.rom_number + other.rom_number)
-
-
     def __repr__(self):
         return self.converting()
-
 
     def __str__(self):
         return self.__repr__()
 
 
-print(ToRomanNumber('XVII'))
-
+print(ToRomanNumber('XVI'))
